@@ -54,12 +54,6 @@ private:
 
 public:
 
-    enum Modifier {
-        STATIC,
-        VIRTUAL,
-        CONST
-    };
-
     Flags separator = 1; // разделяет вектор на модификаторы перед методом и после
     const std::vector<std::string> *MODIFIRES;
 

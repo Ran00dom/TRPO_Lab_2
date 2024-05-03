@@ -38,6 +38,7 @@ public:
     explicit CplusClass(const std::string& name):ClassUnit(name){
             ACCESS_MODIFIERS = &ACCESS_MODIFIERS_SPECIFIC;
         };
+    std::string compile( unsigned int level = 0 ) const;
 };
 
 const std::vector< std::string > CplusClass::ACCESS_MODIFIERS_SPECIFIC = { "public",

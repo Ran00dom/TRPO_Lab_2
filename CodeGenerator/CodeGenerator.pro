@@ -9,7 +9,6 @@ CONFIG += c++17 cmdline
 SOURCES += \
         classunit.cpp \
         main.cpp \
-        methodunit.cpp \
         unit.cpp
 
 # Default rules for deployment.
@@ -19,6 +18,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     classunit.h \
+    factory.h \
     methodunit.h \
     printoperatorunit.h \
     unit.h

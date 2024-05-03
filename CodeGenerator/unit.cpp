@@ -10,23 +10,6 @@ void ClassUnit::add( const std::shared_ptr< Unit >& unit, Flags flags ) {
     m_filds[accessModifier].push_back(unit);
 }
 
-std::string ClassUnit::compile( unsigned int level) const
-{
-    std::string result = generateShift( level ) + "class " + name + " {\n";
-    for( size_t i = 0; i < ACCESS_MODIFIERS->size(); ++i ) {
-        if( m_filds[ i ].empty() ) {
-            continue;
-        }
-        result += ACCESS_MODIFIERS->at(i) + ":\n";
-        for( const auto& f : m_filds[ i ] ) {
-            result += f->compile( level + 1 );
-        }
-        result += "\n";
-    }
-    result += generateShift( level ) + "};\n";
-    return result;
-}
-
 void MethodUnit::add( const std::shared_ptr< Unit >& unit, Flags flags )
 {
     m_filds.resize(1);
@@ -36,7 +19,7 @@ void MethodUnit::add( const std::shared_ptr< Unit >& unit, Flags flags )
 
 std::string MethodUnit::compile( unsigned int level) const {
     std::string result = generateShift( level );
-    if( m_flags <= separator) {
+    if( m_flags <= separator && m_flags > 0) {
         result += MODIFIRES->at(m_flags) + " ";
     }
     result += m_returnType + " ";

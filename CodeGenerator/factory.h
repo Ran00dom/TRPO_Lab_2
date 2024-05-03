@@ -9,9 +9,9 @@
 class CodeGenerator
 {
 public:
-    virtual ClassUnit* createClass(const std::string& name) = 0;
-    virtual MethodUnit* createMethod(const std::string& name, const std::string& returnType, unsigned int flags) = 0;
-    virtual PrintOperatorUnit* createPrintOperatorUnit(const std::string& text) = 0;
+    virtual std::shared_ptr<ClassUnit>  createClass(const std::string& name) = 0;
+    virtual std::shared_ptr<MethodUnit> createMethod(const std::string& name, const std::string& returnType, unsigned int flags) = 0;
+    virtual std::shared_ptr<PrintOperatorUnit> createPrintOperatorUnit(const std::string& text) = 0;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -30,14 +30,14 @@ class JavaCodeGenerator : public CodeGenerator
         FINAL = 2
     };
 
-    ClassUnit* createClass(const std::string& name) {
-        return new JavaClass(name);
+    std::shared_ptr<ClassUnit> createClass(const std::string& name) {
+        return std::make_shared<JavaClass>(name);
     }
-    MethodUnit* createMethod(const std::string& name, const std::string& returnType, unsigned int flags) {
-        return new JavaMethod(name, returnType, flags);
+    std::shared_ptr<MethodUnit> createMethod(const std::string& name, const std::string& returnType, unsigned int flags) {
+        return std::make_shared<JavaMethod>(name, returnType, flags);
     }
-    PrintOperatorUnit* createPrintOperatorUnit(const std::string& text){
-        return new JavaPrintOperator(text);
+    std::shared_ptr<PrintOperatorUnit> createPrintOperatorUnit(const std::string& text){
+        return std::make_shared<JavaPrintOperator>(text);
     }
 };
 
@@ -57,14 +57,14 @@ class CsharpCodeGenerator : public CodeGenerator
         VIRTUAL = 3
     };
 
-    ClassUnit* createClass(const std::string& name) {
-        return new CsharpClass(name);
+    std::shared_ptr<ClassUnit> createClass(const std::string& name) {
+        return std::make_shared<CplusClass>(name);
     }
-    MethodUnit* createMethod(const std::string& name, const std::string& returnType, unsigned int flags) {
-        return new CsharpMethod(name, returnType, flags);
+    std::shared_ptr<MethodUnit> createMethod(const std::string& name, const std::string& returnType, unsigned int flags) {
+        return std::make_shared<CplusMethod>(name, returnType, flags);
     }
-    PrintOperatorUnit* createPrintOperatorUnit(const std::string& text){
-        return new CsharpPrintOperator(text);
+    std::shared_ptr<PrintOperatorUnit> createPrintOperatorUnit(const std::string& text){
+        return std::make_shared<CplusPrintOperator>(text);
     }
 };
 
@@ -88,14 +88,14 @@ class CplusCodeGenerator : public CodeGenerator
         CONST = 3
     };
 
-    ClassUnit* createClass(const std::string& name) {
-        return new CplusClass(name);
+    std::shared_ptr<ClassUnit> createClass(const std::string& name) {
+        return std::make_shared<CplusClass>(name);
     }
-    MethodUnit* createMethod(const std::string& name, const std::string& returnType, unsigned int flags) {
-        return new CplusMethod(name, returnType, flags);
+    std::shared_ptr<MethodUnit> createMethod(const std::string& name, const std::string& returnType, unsigned int flags) {
+        return std::make_shared<CplusMethod>(name, returnType, flags);
     }
-    PrintOperatorUnit* createPrintOperatorUnit(const std::string& text){
-        return new CplusPrintOperator(text);
+    std::shared_ptr<PrintOperatorUnit> createPrintOperatorUnit(const std::string& text){
+        return std::make_shared<CplusPrintOperator>(text);
     }
 };
 

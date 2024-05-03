@@ -20,4 +20,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     classunit.h \
     methodunit.h \
+    printoperatorunit.h \
     unit.h

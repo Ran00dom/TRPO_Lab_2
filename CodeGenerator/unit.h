@@ -41,8 +41,6 @@ public:
     }
 
     void add( const std::shared_ptr< Unit >& unit, Flags flags );
-
-    virtual std::string compile( unsigned int level = 0 ) const;
 };
 
 
@@ -62,6 +60,15 @@ public:
 
     void add( const std::shared_ptr< Unit >& unit, Flags /* flags */ = 0 );
     std::string compile( unsigned int level = 0 ) const;
+};
+
+
+class PrintOperatorUnit : public Unit {
+public:
+
+    explicit PrintOperatorUnit( const std::string& text ) : m_text( text ) { }
+protected:
+    std::string m_text;
 };
 
 

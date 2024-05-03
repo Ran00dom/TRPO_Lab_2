@@ -1,6 +1,7 @@
 #ifndef UNIT_H
 #define UNIT_H
 
+#include <iostream>
 #include <memory>
 #include <vector>
 
@@ -13,8 +14,7 @@ public:
     virtual void add( const std::shared_ptr< Unit >& , Flags ) {
         throw std::runtime_error( "Not supported" );
     }
-    virtual std::string compile( unsigned int level = 0 ) const =
-        0;
+    virtual std::string compile( unsigned int level = 0 ) const = 0;
 protected:
     virtual std::string generateShift( unsigned int level ) const
     {
@@ -37,9 +37,8 @@ public:
     const std::vector<std::string> *ACCESS_MODIFIERS;
 
     explicit ClassUnit( const std::string& name ) : name( name ) {
-        m_filds.resize( ACCESS_MODIFIERS->size() );
+       // m_filds.resize( ACCESS_MODIFIERS->size() );
     }
-
     void add( const std::shared_ptr< Unit >& unit, Flags flags );
 };
 
@@ -56,7 +55,9 @@ public:
     const std::vector<std::string> *MODIFIRES;
 
     MethodUnit( const std::string& name, const std::string& returnType, Flags flags ) :
-        m_name( name ), m_returnType( returnType ), m_flags( flags ) { }
+        m_name( name ), m_returnType( returnType ), m_flags( flags ) {
+            m_filds.resize(1);
+    }
 
     void add( const std::shared_ptr< Unit >& unit, Flags /* flags */ = 0 );
     std::string compile( unsigned int level = 0 ) const;

@@ -12,15 +12,13 @@ void ClassUnit::add( const std::shared_ptr< Unit >& unit, Flags flags ) {
 
 void MethodUnit::add( const std::shared_ptr< Unit >& unit, Flags flags )
 {
-    m_filds.resize(1);
     m_filds[0].push_back( unit );
 }
-
 
 std::string MethodUnit::compile( unsigned int level) const {
     std::string result = generateShift( level );
     if( m_flags <= separator && m_flags > 0) {
-        result += MODIFIRES->at(m_flags) + " ";
+        result +=  " ";
     }
     result += m_returnType + " ";
     result += m_name + "()";
@@ -29,6 +27,9 @@ std::string MethodUnit::compile( unsigned int level) const {
         result += MODIFIRES->at(m_flags);
     }
 
+    result += " {";
+    if ( !m_filds[0].empty())
+        result += "\n";
     for( const auto& b : m_filds[0] ) {
         result += b->compile( level + 1 );
     }

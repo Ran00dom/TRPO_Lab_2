@@ -18,6 +18,7 @@ public:
 
 class JavaCodeGenerator : public CodeGenerator
 {
+public:
     enum AccessModifier {
         PUBLIC,
         PROTECTED,
@@ -45,12 +46,16 @@ class JavaCodeGenerator : public CodeGenerator
 
 class CsharpCodeGenerator : public CodeGenerator
 {
+public:
     enum AccessModifier {
         PUBLIC,
+        PRIVATE,
         PROTECTED,
-        PRIVATE
+        INTERNAL,
+        PROTECTED_INTERNAL,
+        PRIVATE_PROTECTED,
+        FILE
     };
-
     enum Modifier {
         STATIC = 1,
         OVERRIDE = 2,
@@ -72,14 +77,11 @@ class CsharpCodeGenerator : public CodeGenerator
 
 class CplusCodeGenerator : public CodeGenerator
 {
+public:
     enum AccessModifier {
         PUBLIC,
-        PROTECTED_INTERNAL,
-        INTERNAL,
         PROTECTED,
-        PRIVATE_PROTECTED,
-        PRIVATE,
-        FILE
+        PRIVATE
     };
 
     enum Modifier {

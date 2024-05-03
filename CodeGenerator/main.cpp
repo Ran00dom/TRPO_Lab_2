@@ -1,29 +1,33 @@
 #include "unit.h"
+#include "factory.h"
 #include <QCoreApplication>
+#include <iostream>
 
-std::string generateProgram() {
-    ClassUnit myClass( "MyClass" );
-    myClass.add(
-        std::make_shared< MethodUnit >( "testFunc1", "void", 0 ),
-        ClassUnit::PUBLIC
+std::string generateProgram(CodeGenerator& generator) {
+    std::shared_ptr<ClassUnit> myClass = generator.createClass("MyClass");
+
+    myClass->add(
+        generator.createMethod( "testFunc1", "void", 0 ),
+        JavaCodeGenerator::PUBLIC
         );
-    myClass.add(
-        std::make_shared< MethodUnit >( "testFunc2", "void", MethodUnit::STATIC ),
-        ClassUnit::PRIVATE
+    myClass->add(
+        generator.createMethod( "testFunc2", "void", JavaCodeGenerator::STATIC ),
+        JavaCodeGenerator::PRIVATE
         );
-    myClass.add(
-        std::make_shared< MethodUnit >( "testFunc3", "void", MethodUnit::VIRTUAL |
-                                                              MethodUnit::CONST ),
-        ClassUnit::PUBLIC
+    myClass->add(
+        generator.createMethod( "testFunc3", "void", JavaCodeGenerator::STATIC ),
+        JavaCodeGenerator::PUBLIC
         );
-    auto method = std::make_shared< MethodUnit >( "testFunc4", "void",
-                                               MethodUnit::STATIC );
-    method->add( std::make_shared< PrintOperatorUnit >( R"(Hello, world!\n)" ) );
-    myClass.add( method, ClassUnit::PROTECTED );
-    return myClass.compile();
+    std::shared_ptr<MethodUnit>method = generator.createMethod( "testFunc4", "void",
+                                                                JavaCodeGenerator::FINAL );
+    method->add( generator.createPrintOperatorUnit(R"(Hello, world!\n)" ) );
+    myClass->add( method, JavaCodeGenerator::PROTECTED );
+
+    return myClass->compile();
 }
 
 int main() {
-    std::cout << generateProgram() << std::endl;
+    CodeGenerator* generator = new JavaCodeGenerator();
+    std::cout << generateProgram(*generator) << std::endl;
     return 0;
 }

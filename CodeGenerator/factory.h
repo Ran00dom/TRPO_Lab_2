@@ -18,6 +18,18 @@ public:
 
 class JavaCodeGenerator : public CodeGenerator
 {
+    enum AccessModifier {
+        PUBLIC,
+        PROTECTED,
+        PRIVATE,
+        DEFAULT
+    };
+
+    enum Modifier {
+        STATIC = 1,
+        FINAL = 2
+    };
+
     ClassUnit* createClass(const std::string& name) {
         return new JavaClass(name);
     }
@@ -33,6 +45,18 @@ class JavaCodeGenerator : public CodeGenerator
 
 class CsharpCodeGenerator : public CodeGenerator
 {
+    enum AccessModifier {
+        PUBLIC,
+        PROTECTED,
+        PRIVATE
+    };
+
+    enum Modifier {
+        STATIC = 1,
+        OVERRIDE = 2,
+        VIRTUAL = 3
+    };
+
     ClassUnit* createClass(const std::string& name) {
         return new CsharpClass(name);
     }
@@ -48,6 +72,22 @@ class CsharpCodeGenerator : public CodeGenerator
 
 class CplusCodeGenerator : public CodeGenerator
 {
+    enum AccessModifier {
+        PUBLIC,
+        PROTECTED_INTERNAL,
+        INTERNAL,
+        PROTECTED,
+        PRIVATE_PROTECTED,
+        PRIVATE,
+        FILE
+    };
+
+    enum Modifier {
+        STATIC = 1,
+        VIRTUAL = 2,
+        CONST = 3
+    };
+
     ClassUnit* createClass(const std::string& name) {
         return new CplusClass(name);
     }

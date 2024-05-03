@@ -51,3 +51,10 @@ std::string CplusClass::compile( unsigned int level) const
     result += generateShift( level ) + "};\n";
     return result;
 }
+
+const std::vector< std::string > JavaClass::ACCESS_MODIFIERS_SPECIFIC = { "public",
+                                                                       "protected", "private", "default" };
+const std::vector< std::string > CplusClass::ACCESS_MODIFIERS_SPECIFIC = { "public",
+                                                                        "protected", "private" };
+const std::vector< std::string > CsharpClass::ACCESS_MODIFIERS_SPECIFIC = { "public","protected internal",	"protected	internal","private protected","private","file" };
+

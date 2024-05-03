@@ -21,8 +21,6 @@ public:
     std::string compile( unsigned int level = 0 ) const;
 };
 
-const std::vector< std::string > JavaClass::ACCESS_MODIFIERS_SPECIFIC = { "public",
-                                                              "protected", "private", "default" };
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -41,8 +39,6 @@ public:
     std::string compile( unsigned int level = 0 ) const;
 };
 
-const std::vector< std::string > CplusClass::ACCESS_MODIFIERS_SPECIFIC = { "public",
-                                                              "protected", "private" };
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -64,8 +60,6 @@ public:
     };
     std::string compile( unsigned int level = 0 ) const;
 };
-
-const std::vector< std::string > CsharpClass::ACCESS_MODIFIERS_SPECIFIC = { "public","protected internal",	"protected	internal","private protected","private","file" };
 
 
 #endif // CLASSUNIT_H

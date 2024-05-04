@@ -9,6 +9,7 @@ CONFIG += c++17 cmdline
 SOURCES += \
         classunit.cpp \
         main.cpp \
+        syntaxcode.cpp \
         unit.cpp
 
 # Default rules for deployment.
@@ -21,4 +22,5 @@ HEADERS += \
     factory.h \
     methodunit.h \
     printoperatorunit.h \
+    syntaxcode.h \
     unit.h

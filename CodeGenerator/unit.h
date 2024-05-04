@@ -1,7 +1,6 @@
 #ifndef UNIT_H
 #define UNIT_H
 
-#include <iostream>
 #include <memory>
 #include <vector>
 
@@ -11,7 +10,7 @@ public:
     using Flags = unsigned int;
 public:
     virtual ~Unit() = default;
-    virtual void add( const std::shared_ptr< Unit >& , Flags ) {
+    virtual void add( const std::shared_ptr< Unit >& , Flags = 0) {
         throw std::runtime_error( "Not supported" );
     }
     virtual std::string compile( unsigned int level = 0 ) const = 0;
@@ -63,13 +62,40 @@ public:
     std::string compile( unsigned int level = 0 ) const;
 };
 
-
 class PrintOperatorUnit : public Unit {
 public:
-
     explicit PrintOperatorUnit( const std::string& text ) : m_text( text ) { }
 protected:
     std::string m_text;
+};
+
+class SyntaxCode {
+protected:
+    //static const unsigned int AccessModifierSize = 8;
+    //static const unsigned int MethodModifierSize = 6;
+public:
+    using Flags = unsigned int;
+    enum AccessModifier {
+        PUBLIC = 0,
+        PRIVATE,
+        PROTECTED,
+        INTERNAL,
+        PROTECTED_INTERNAL,
+        PRIVATE_PROTECTED,
+        FILE,
+        DEFAULT
+    };
+
+    enum MethodModifier {
+        STATIC = 1 << 0,
+        OVERRIDE = 1 << 1,
+        VIRTUAL = 1 << 2,
+        CONST = 1 << 3,
+        FINAL = 1 << 4
+    };
+
+    virtual Flags definitionFlags(AccessModifier flags) = 0;
+    virtual Flags definitionFlags(Flags flag) = 0;
 };
 
 

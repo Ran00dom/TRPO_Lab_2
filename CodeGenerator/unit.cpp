@@ -17,22 +17,32 @@ void MethodUnit::add( const std::shared_ptr< Unit >& unit, Flags flags )
 
 std::string MethodUnit::compile( unsigned int level) const {
     std::string result = generateShift( level );
-    if( m_flags <= separator && m_flags > 0) {
-        result +=  " ";
-    }
+//if( m_flags <= separator && m_flags > 0) {
+  //      result +=  " ";
+    //}
+    if (m_flags != 0)
+        for(Flags i = 0; i < separator; i++) {
+            if (m_flags & (1 << i))
+                result += MODIFIRES->at(i) + " ";
+        }
+
     result += m_returnType + " ";
-    result += m_name + "()";
+    result += m_name + "() ";
 
-    if( m_flags > separator) {
-        result += MODIFIRES->at(m_flags);
-    }
+    if (m_flags != 0)
+        for(Flags i = separator; i < MODIFIRES->size(); i++) {
+            if (m_flags & (1 << i))
+                result += MODIFIRES->at(i) + " ";
+        }
 
-    result += " {";
+    result += "{";
     if ( !m_filds[0].empty())
         result += "\n";
     for( const auto& b : m_filds[0] ) {
         result += b->compile( level + 1 );
     }
+
+
     result += generateShift( level ) + "}\n";
     return result;
 }

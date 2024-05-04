@@ -1,6 +1,4 @@
 #include "classunit.h"
-#include <iostream>
-#include <ostream>
 
 std::string JavaClass::compile( unsigned int level) const
 {
@@ -10,7 +8,7 @@ std::string JavaClass::compile( unsigned int level) const
             continue;
         }
         for( const auto& f : m_filds[ i ] ) {
-            result += ACCESS_MODIFIERS->at(i) ;
+            result += ACCESS_MODIFIERS->at(i);
             result += f->compile( level + 1 );
         }
         result += "\n";
@@ -27,7 +25,7 @@ std::string CsharpClass::compile( unsigned int level) const
             continue;
         }
         for( const auto& f : m_filds[ i ] ) {
-            result += ACCESS_MODIFIERS->at(i) + " ";
+            result += ACCESS_MODIFIERS->at(i);
             result += f->compile( level + 1 );
         }
         result += "\n";
@@ -46,7 +44,7 @@ std::string CplusClass::compile( unsigned int level) const
         }
         result += ACCESS_MODIFIERS->at(i) + ":\n";
         for( const auto& f : m_filds[ i ] ) {
-            result += f->compile( level + 1 );
+            result += f->compile( (level + 1)*4 );
         }
         result += "\n";
     }
@@ -58,5 +56,5 @@ const std::vector< std::string > JavaClass::ACCESS_MODIFIERS_SPECIFIC = { "publi
                                                                        "protected", "private", "default" };
 const std::vector< std::string > CplusClass::ACCESS_MODIFIERS_SPECIFIC = { "public",
                                                                         "protected", "private" };
-const std::vector< std::string > CsharpClass::ACCESS_MODIFIERS_SPECIFIC = { "public","private","protected", "internal", "protected	internal","private protected","file" };
+const std::vector< std::string > CsharpClass::ACCESS_MODIFIERS_SPECIFIC = { "public","protected","private", "internal", "protected internal","private protected","file" };
 

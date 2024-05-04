@@ -18,7 +18,7 @@ std::string generateProgram_test1(CodeGenerator& generator) {
 
     myClass->add(
         generator.createMethod( "testFunc3", "void", mySyntax->definitionFlags(SyntaxCode::MethodModifier::STATIC) ),
-        mySyntax->definitionFlags(SyntaxCode::AccessModifier::PUBLIC)
+        mySyntax->definitionFlags(SyntaxCode::AccessModifier::DEFAULT)
         );
     std::shared_ptr<MethodUnit>method = generator.createMethod( "testFunc4", "void",
                                                                 mySyntax->definitionFlags(SyntaxCode::MethodModifier::FINAL) );
@@ -34,7 +34,8 @@ std::string generateProgram_test2(CodeGenerator& generator)
     std::shared_ptr<SyntaxCode> mySyntax = generator.createSyntaxCode();
 
     std::shared_ptr<MethodUnit> method = generator.createMethod( "printDir", "void", 0 );
-     method->add( generator.createPrintOperatorUnit(R"(C:\lab2.txt)" ) );
+    method->add( generator.createPrintOperatorUnit(R"(C:\lab2.txt)" ) );
+    method->add( generator.createPrintOperatorUnit(R"(add file)" ) );
 
     myClass->add(
         method,
@@ -42,7 +43,9 @@ std::string generateProgram_test2(CodeGenerator& generator)
         );
     myClass->add(generator.createMethod("size", "qint64&", mySyntax->definitionFlags(SyntaxCode::MethodModifier::CONST)), mySyntax->definitionFlags(SyntaxCode::AccessModifier::INTERNAL));
     myClass->add(generator.createMethod("name", "QString", mySyntax->definitionFlags(SyntaxCode::MethodModifier::CONST)), mySyntax->definitionFlags(SyntaxCode::AccessModifier::PRIVATE_PROTECTED));
-    myClass->add(generator.createMethod("exist", "bool", mySyntax->definitionFlags(SyntaxCode::MethodModifier::CONST | SyntaxCode::MethodModifier::OVERRIDE)), mySyntax->definitionFlags(SyntaxCode::AccessModifier::PROTECTED_INTERNAL));
+    method = generator.createMethod("exist", "bool", mySyntax->definitionFlags(SyntaxCode::MethodModifier::CONST | SyntaxCode::MethodModifier::OVERRIDE));
+    method->add( generator.createPrintOperatorUnit(R"(File exist!)" ) );
+    myClass->add(method, mySyntax->definitionFlags(SyntaxCode::AccessModifier::PROTECTED_INTERNAL));
     myClass->add(generator.createMethod("Instance", "QFileInfo&", mySyntax->definitionFlags(SyntaxCode::MethodModifier::STATIC)), mySyntax->definitionFlags(SyntaxCode::AccessModifier::PUBLIC));
     myClass->add(generator.createMethod("checkSyffix", "std::string", mySyntax->definitionFlags(SyntaxCode::MethodModifier::CONST | SyntaxCode::MethodModifier::STATIC)), mySyntax->definitionFlags(SyntaxCode::AccessModifier::PRIVATE));
     myClass->add(generator.createMethod("correctPath", "bool", mySyntax->definitionFlags(SyntaxCode::MethodModifier::VIRTUAL)), mySyntax->definitionFlags(SyntaxCode::AccessModifier::PRIVATE));
@@ -52,10 +55,11 @@ std::string generateProgram_test2(CodeGenerator& generator)
 
 int main() {
     std::string str;
-    std::cout << "Enter 'Cplus' 'Csharp' and 'Java' for select CodeGenerator!" << std::endl;
-    std::cout << "Select test > 'test1', 'test2'" << std::endl;
+
     while(true)
     {
+        std::cout << std::endl << "//////////////////////////////////////////////////////////////////////////////" << std::endl;
+        std::cout << "Enter 'Cplus' 'Csharp' and 'Java' for select CodeGenerator!" << std::endl;
         CodeGenerator* generator = nullptr;
         std::cin >> str;
         if (str == "Cplus")
@@ -67,6 +71,7 @@ int main() {
 
         if (generator != nullptr)
         {
+            std::cout << "Select test > 'test1', 'test2'" << std::endl;
             std::cout << "Enter test name!" << std::endl;
             std::cin >> str;
             if (str == "test1")
